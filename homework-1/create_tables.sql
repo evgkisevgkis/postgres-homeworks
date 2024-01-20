@@ -1,6 +1,6 @@
 -- SQL-команды для создания таблиц
 CREATE TABLE employees (
-	employee_id serial,
+	employee_id int PRIMARY KEY,
 	first_name varchar(20),
 	last_name varchar(20),
 	title varchar(50),
