@@ -10,7 +10,7 @@ CREATE TABLE employees (
 
 CREATE TABLE customers (
 	customer_id varchar(5) PRIMARY KEY,
-	company_name varchar(30),
+	company_name varchar(50),
 	contact_name varchar(30)
 );
 
