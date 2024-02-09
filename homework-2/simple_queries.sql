@@ -14,4 +14,4 @@ SELECT COUNT(*) FROM orders;
 
 
 -- 5. количество стран, в которые отгружался товар (таблица orders, колонка ship_country)
-SELECT DISTINCT COUNT(ship_country) FROM orders;
+SELECT COUNT(DISTINCT ship_country) FROM orders;
