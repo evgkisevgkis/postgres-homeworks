@@ -33,3 +33,10 @@ WHERE NOT EXISTS (
 
 -- 4. уникальные названия продуктов, которых заказано ровно 10 единиц (количество заказанных единиц см в колонке quantity табл order_details)
 -- Этот запрос написать именно с использованием подзапроса.
+SELECT DISTINCT product_name
+FROM products
+WHERE EXISTS (
+	SELECT 1 FROM order_details
+	WHERE order_details.product_id=products.product_id
+	AND quantity = 10
+)
