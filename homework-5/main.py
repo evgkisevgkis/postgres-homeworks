@@ -26,8 +26,8 @@ def main():
                 create_suppliers_table(cur)
                 print("Таблица suppliers успешно создана")
                 suppliers = get_suppliers_data(json_file)
-    #             insert_suppliers_data(cur, suppliers)
-    #             print("Данные в suppliers успешно добавлены")
+                insert_suppliers_data(cur, suppliers)
+                print("Данные в suppliers успешно добавлены")
     #
     #             add_foreign_keys(cur, json_file)
     #             print(f"FOREIGN KEY успешно добавлены")
@@ -87,7 +87,17 @@ def get_suppliers_data(json_file: str) -> list[dict]:
 
 def insert_suppliers_data(cur, suppliers: list[dict]) -> None:
     """Добавляет данные из suppliers в таблицу suppliers."""
-    pass
+    for supplier in suppliers:
+        contact = supplier['contact_name'].split(',')
+        address = supplier['address'].split(';')
+        cur.execute(
+            """
+            INSERT INTO suppliers(company_name, contact_name, contact_title, address, city, region, postal_code,
+            country, phone, fax, homepage)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, )""",
+            (supplier['company_name'], contact[0], contact[1], address[5], address[4], address[3], address[2],
+             address[1], address[0], supplier['phone'], supplier['fax'], supplier['homepage'])
+        )
 
 
 def add_foreign_keys(cur, json_file) -> None:
