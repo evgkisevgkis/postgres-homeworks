@@ -22,9 +22,9 @@ def main():
             with conn.cursor() as cur:
                 execute_sql_script(cur, script_file)
                 print(f"БД {db_name} успешно заполнена")
-    #
-    #             create_suppliers_table(cur)
-    #             print("Таблица suppliers успешно создана")
+
+                create_suppliers_table(cur)
+                print("Таблица suppliers успешно создана")
     #
     #             suppliers = get_suppliers_data(json_file)
     #             insert_suppliers_data(cur, suppliers)
@@ -33,7 +33,7 @@ def main():
     #             add_foreign_keys(cur, json_file)
     #             print(f"FOREIGN KEY успешно добавлены")
     #
-    except(Exception, psycopg2.DatabaseError) as error:
+    except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
         if conn is not None:
@@ -61,7 +61,23 @@ def execute_sql_script(cur, script_file) -> None:
 
 def create_suppliers_table(cur) -> None:
     """Создает таблицу suppliers."""
-    pass
+    cur.execute("""
+    CREATE TABLE suppliers(
+    supplier_id SERIAL PRIMARY KEY,
+    company_name VARCHAR(40),
+    contact_name VARCHAR(30),
+    contact_title VARCHAR(30),
+    address VARCHAR(60),
+    city VARCHAR(15),
+    region VARCHAR(15),
+    postal_code VARCHAR(10),
+    country VARCHAR(15),
+    phone VARCHAR(24),
+    fax VARCHAR(24),
+    homepage TEXT)
+    """)
+    # cur.commit()
+    cur.close()
 
 
 def get_suppliers_data(json_file: str) -> list[dict]:
