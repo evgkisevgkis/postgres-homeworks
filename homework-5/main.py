@@ -25,8 +25,7 @@ def main():
 
                 create_suppliers_table(cur)
                 print("Таблица suppliers успешно создана")
-    #
-    #             suppliers = get_suppliers_data(json_file)
+                suppliers = get_suppliers_data(json_file)
     #             insert_suppliers_data(cur, suppliers)
     #             print("Данные в suppliers успешно добавлены")
     #
@@ -76,13 +75,14 @@ def create_suppliers_table(cur) -> None:
     fax VARCHAR(24),
     homepage TEXT)
     """)
-    # cur.commit()
     cur.close()
 
 
 def get_suppliers_data(json_file: str) -> list[dict]:
     """Извлекает данные о поставщиках из JSON-файла и возвращает список словарей с соответствующей информацией."""
-    pass
+    with open(json_file, 'r') as file:
+        data = json.load(file)
+    return data
 
 
 def insert_suppliers_data(cur, suppliers: list[dict]) -> None:
